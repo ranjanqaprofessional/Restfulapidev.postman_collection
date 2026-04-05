@@ -1,0 +1,2 @@
+# Restfulapidev.postman_collection
+repository of Restfulapidev.postman_collection
