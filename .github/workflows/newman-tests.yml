@@ -26,6 +26,7 @@ jobs:
         run: newman run Restfulapidev.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export newman-report.html
 
       - name: Upload Newman report
+        if: always() # ensures report is uploaded even if tests fail
         uses: actions/upload-artifact@v4
         with:
           name: newman-report
