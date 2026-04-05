@@ -7,35 +7,25 @@ on:
     branches: [ main ]
 
 jobs:
-  newman:
+  run-newman:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout your repo
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      # Step 3: Install Newman + htmlextra reporter
       - name: Install Newman
-        run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
+        run: npm install -g newman newman-reporter-htmlextra
 
-      # Step 4: Run your collection
-      - name: Run API tests
-        run: |
-          newman run Restfulapidev.postman_collection.json \
-            -r cli,htmlextra \
-            --reporter-htmlextra-export newman-report.html
+      - name: Run Postman collection
+        run: newman run Restfulapidev.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export newman-report.html
 
-      # Step 5: Upload the HTML report
-      - name: Upload report
+      - name: Upload Newman report
         uses: actions/upload-artifact@v4
         with:
           name: newman-report
